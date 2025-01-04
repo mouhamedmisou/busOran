@@ -57,7 +57,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    void findPath2(LatLng start, LatLng end) async {
+    void calculateRoute(LatLng start, LatLng end) async {
       print("finding path");
       BusStop startStop = findNearestStop(start);
       BusStop endStop = findNearestStop(end);
@@ -76,69 +76,6 @@ class _MyAppState extends State<MyApp> {
         LoadLineIndexed(stop.lineID, stop.startIndex, stop.endIndex,
             clear: false);
       }
-    }
-
-    void findPath(LatLng start, LatLng end) async {
-      print("finding path");
-      BusStop startStop = findNearestStop(start);
-      BusStop endStop = findNearestStop(end);
-
-      print("start: ${startStop.name} ===> end: ${endStop.name}");
-      List<String> startLines = startStop.lines;
-      for (var line in startLines) {
-        if (endStop.lines.contains(line)) {
-          LoadLineIndexed(
-              line,
-              busLines
-                  .firstWhere((busLine) => busLine.id == line)
-                  .stops
-                  .indexOf(startStop.id),
-              busLines
-                      .firstWhere((busLine) => busLine.id == line)
-                      .stops
-                      .indexOf(endStop.id) +
-                  1);
-          return;
-        }
-      }
-      print("no direct line found");
-      for (var line in startLines) {
-        for (var stopId
-            in busLines.firstWhere((busLine) => busLine.id == line).stops) {
-          BusStop transferStop =
-              busStops.firstWhere((busStop) => busStop.id == stopId);
-          for (var transferLine in transferStop.lines) {
-            if (endStop.lines.contains(transferLine)) {
-              LoadLineIndexed(
-                  line,
-                  busLines
-                      .firstWhere((busLine) => busLine.id == line)
-                      .stops
-                      .indexOf(startStop.id),
-                  busLines
-                          .firstWhere((busLine) => busLine.id == line)
-                          .stops
-                          .indexOf(stopId) +
-                      1,
-                  clear: true);
-              LoadLineIndexed(
-                  transferLine,
-                  busLines
-                      .firstWhere((busLine) => busLine.id == transferLine)
-                      .stops
-                      .indexOf(stopId),
-                  busLines
-                          .firstWhere((busLine) => busLine.id == transferLine)
-                          .stops
-                          .indexOf(endStop.id) +
-                      1,
-                  clear: false);
-              return;
-            }
-          }
-        }
-      }
-      print("no line found");
     }
 
     Timer timer = Timer.periodic(Duration(seconds: 2), (timer) {
@@ -168,11 +105,12 @@ class _MyAppState extends State<MyApp> {
               dest = point;
               if (UseRealLoc) {
                 Geolocator.getCurrentPosition().then((value) {
-                  findPath2(LatLng(value.latitude, value.longitude), point);
+                  calculateRoute(
+                      LatLng(value.latitude, value.longitude), point);
                 });
               } else {
                 LatLng start = LatLng(35.6607, -0.6316);
-                findPath2(start, point);
+                calculateRoute(start, point);
               }
               ;
             },
@@ -361,7 +299,10 @@ BusStop findNearestStop(LatLng position) {
   return nearest;
 }
 
-List<BusStop> GetWalkableStops(LatLng pos) {
+List<BusStop> GetWalkableStops(
+    LatLng
+        pos) //This is here for future use 'test multiple starts and endpoints'
+{
   List<BusStop> stops = [];
   for (var stop in busStops) {
     if (calculateDistance(pos, stop.position) < 0.5) {
