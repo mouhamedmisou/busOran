@@ -1,0 +1,998 @@
+[
+    {
+        "id": "1",
+        "name": "Hai Sabah",
+        "latitude": 35.6954,
+        "longitude": -0.5743,
+        "Lines": [
+            "51",
+            "11",
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "Hai Sabah"
+    },
+    {
+        "id": "2",
+        "name": "Univ-USTO",
+        "latitude": 35.7039,
+        "longitude": -0.5773,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Universit\u00e9 des sciences et technologies Mohamed Boudiaf"
+    },
+    {
+        "id": "3",
+        "name": "Bureau de Poste USTO-Univ",
+        "latitude": 35.7022,
+        "longitude": -0.5854,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Universit\u00e9 des sciences et technologies Mohamed Boudiaf"
+    },
+    {
+        "id": "4",
+        "name": "Station des Taxis inter wilaya USTO",
+        "latitude": 35.7021,
+        "longitude": -0.591,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "USTO"
+    },
+    {
+        "id": "5",
+        "name": "clinique nekkache",
+        "latitude": 35.7021,
+        "longitude": -0.5958,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "USTO"
+    },
+    {
+        "id": "6",
+        "name": "Jardin El Morchid",
+        "latitude": 35.7073,
+        "longitude": -0.5975,
+        "Lines": [
+            "51",
+            "11"
+            
+        ],
+        "markerColor": "red",
+        "district": "Point Du Jour"
+    },
+    {
+        "id": "7",
+        "name": "HLM",
+        "latitude": 35.7059,
+        "longitude": -0.6044,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Point Du Jour"
+    },
+    {
+        "id": "8",
+        "name": "Lyc\u00e9e Tazi",
+        "latitude": 35.7052,
+        "longitude": -0.6083,
+        "Lines": [
+            "B",
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Hai Seddikia"
+    },
+    {
+        "id": "9",
+        "name": "Point de retrait Jumia Oran",
+        "latitude": 35.706,
+        "longitude": -0.6118,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "GAMBETTA"
+    },
+    {
+        "id": "10",
+        "name": "Cit\u00e9 Jeanne dArc",
+        "latitude": 35.7074,
+        "longitude": -0.6171,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "GAMBETTA "
+    },
+    {
+        "id": "11",
+        "name": "Station service Naftal",
+        "latitude": 35.7069,
+        "longitude": -0.6207,
+        "Lines": [
+            "51",
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "GAMBETTA "
+    },
+    {
+        "id": "12",
+        "name": "Drouj",
+        "latitude": 35.7036,
+        "longitude": -0.6268,
+        "Lines": [
+            "51"
+        ],
+        "markerColor": "red",
+        "district": "La Wilaya"
+    },
+    {
+        "id": "13",
+        "name": "Station Naftal",
+        "latitude": 35.7015,
+        "longitude": -0.63,
+        "Lines": [
+            "51"
+        ],
+        "markerColor": "red",
+        "district": "Hai Menaouer"
+    },
+    {
+        "id": "14",
+        "name": "CNEPD",
+        "latitude": 35.696,
+        "longitude": -0.6311,
+        "Lines": [
+            "51",
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "Hai Khaledia"
+    },
+    {
+        "id": "15",
+        "name": "\u0639\u0645\u0627\u0631\u0629 \u0627\u0644\u0645\u0647\u0627\u062c\u0631\u064a\u0646",
+        "latitude": 35.6932,
+        "longitude": -0.6362,
+        "Lines": [
+            "51",
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef el Hamri"
+    },
+    {
+        "id": "16",
+        "name": "Stade El Hamri",
+        "latitude": 35.6908,
+        "longitude": -0.6414,
+        "Lines": [
+            "51",
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "Hai Ech Chabab"
+    },
+    {
+        "id": "17",
+        "name": "Terminus 51 prison",
+        "latitude": 35.6903,
+        "longitude": -0.6432,
+        "Lines": [
+            "51"
+        ],
+        "markerColor": "red",
+        "district": "Hai Ech Chabab"
+    },
+    {
+        "id": "29",
+        "name": "CEM Tandjaoui ",
+        "latitude": 35.7073,
+        "longitude": -0.62176,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "GAMBETTA"
+    },
+    {
+        "id": "30",
+        "name": "Hotel eden",
+        "latitude": 35.7058,
+        "longitude": -0.62734,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Lotfi"
+    },
+    {
+        "id": "31",
+        "name": "Lyc\u00e9e Lotfi Arr\u00eat 11/31/P1",
+        "latitude": 35.7050929,
+        "longitude":  -0.6306312,
+        "Lines": [
+            "11",
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Lyc\u00e9e Lotfi"
+    },
+    {
+        "id": "32",
+        "name": "Jardin MIRAMAR",
+        "latitude": 35.70513,
+        "longitude": -0.6305,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "MIRAMAR"
+    },
+    {
+        "id": "33",
+        "name": "Place des Victoires",
+        "latitude": 35.7033,
+        "longitude": -0.6357,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "MIRAMAR"
+    },
+    {
+        "id": "34",
+        "name": "Lyc\u00e9e Pasteur",
+        "latitude": 35.703,
+        "longitude": -0.6372,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Emir"
+    },
+    {
+        "id": "35",
+        "name": "Place darme",
+        "latitude": 35.7044,
+        "longitude": -0.644,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Emir"
+    },
+    {
+        "id": "36",
+        "name": "Valero",
+        "latitude": 35.7037,
+        "longitude": -0.6492,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Emir"
+    },
+    {
+        "id": "38",
+        "name": "Cath\u00e9drales",
+        "latitude": 35.7007,
+        "longitude": -0.6473,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Emir"
+    },
+    {
+        "id": "39",
+        "name": "Place des Victoires2",
+        "latitude": 35.7028,
+        "longitude": -0.6378,
+        "Lines": [
+            "11"
+        ],
+        "markerColor": "red",
+        "district": "MIRAMAR"
+    },
+    {
+        "id": "40",
+        "name": "3\u0645\u062d\u0637\u06294",
+        "latitude": 35.6478,
+        "longitude": -0.6495,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Cit\u00e9 200 Logements"
+    },
+    {
+        "id": "41",
+        "name": "Caf\u00e9 Miloudi",
+        "latitude": 35.6504,
+        "longitude": -0.6498,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Cit\u00e9 200 Logements"
+    },
+    {
+        "id": "42",
+        "name": "Ecole Primaire Boudoura",
+        "latitude": 35.6519,
+        "longitude": -0.6465,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Cit\u00e9 200 Logements"
+    },
+    {
+        "id": "43",
+        "name": "Tribunal Es S\u00e8nia",
+        "latitude": 35.6524,
+        "longitude": -0.6271,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Senia"
+    },
+    {
+        "id": "44",
+        "name": "IGMO",
+        "latitude": 35.6607,
+        "longitude": -0.6316,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Senia"
+    },
+    {
+        "id": "45",
+        "name": "ENPO",
+        "latitude": 35.6653,
+        "longitude": -0.6344,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Senia"
+    },
+    {
+        "id": "46",
+        "name": "RODINA",
+        "latitude": 35.6704,
+        "longitude": -0.6374,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Les Palmiers"
+    },
+    {
+        "id": "47",
+        "name": "\u0627\u0644\u062e\u062f\u0645\u0627\u062a \u0627\u0644\u062c\u0627\u0645\u0639\u064a\u0629 \u0627\u0644\u0633\u0627\u0646\u064a\u0629",
+        "latitude": 35.6752,
+        "longitude": -0.6404,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Les Palmiers"
+    },
+    {
+        "id": "48",
+        "name": "CEM Cherfaoui",
+        "latitude": 35.6803,
+        "longitude": -0.6435,
+        "Lines": [
+            "34","B"
+        ],
+        "markerColor": "red",
+        "district": "Cherfaoui"
+    },
+    {
+        "id": "49",
+        "name": "Commissariat central",
+        "latitude": 35.6857,
+        "longitude": -0.6469,
+        "Lines": [
+            
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Hai El Ghoualem"
+    },
+    {
+        "id": "50",
+        "name": "cit\u00e9 DAR HAYAT",
+        "latitude": 35.6901,
+        "longitude": -0.6489,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "DAR HAYAT"
+    },
+    {
+        "id": "51",
+        "name": "Poste Mdina Jdida",
+        "latitude": 35.6946,
+        "longitude": -0.6507,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "DAR HAYAT"
+    },
+    {
+        "id": "52",
+        "name": "Houha Tlemcen",
+        "latitude": 35.6978,
+        "longitude": -0.6513,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Hai Karama"
+    },
+    {
+        "id": "53",
+        "name": "Valero2",
+        "latitude": 35.701,
+        "longitude": -0.6502,
+        "Lines": [
+            "34","11"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Emir"
+    },
+    {
+        "id": "54",
+        "name": "Mairie Oran",
+        "latitude": 35.7028,
+        "longitude": -0.6496,
+        "Lines": [
+            "34"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Emir"
+    },
+    {
+        "id": "55",
+        "name": "Universit\u00e9 Oran 2 - Belgaid",
+        "latitude": 35.7423,
+        "longitude": -0.5369,
+        "Lines": [
+            
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Belgaid"
+    },
+    {
+        "id": "56",
+        "name": "Mairie Bir el Djir",
+        "latitude": 35.7495,
+        "longitude": -0.5541,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Belgaid"
+    },
+    {
+        "id": "57",
+        "name": "Jardin El Menzah Canastel",
+        "latitude": 35.7412,
+        "longitude": -0.5671,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Hai El Menzah"
+    },
+    {
+        "id": "58",
+        "name": "Hopital p\u00e9diatrique de Canastel",
+        "latitude": 35.7352,
+        "longitude": -0.5775,
+        "Lines": [
+            
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Hai El Menzah"
+    },
+    {
+        "id": "59",
+        "name": "MASJID El Qods",
+        "latitude": 35.7311,
+        "longitude": -0.5787,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Fernand Ville"
+    },
+    {
+        "id": "60",
+        "name": "JOY Boys Akid",
+        "latitude": 35.7248,
+        "longitude": -0.5885,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Akid Lotfi"
+    },
+    {
+        "id": "61",
+        "name": "Meridien Oran Hotel",
+        "latitude": 35.7253,
+        "longitude": -0.594,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Akid Lotfi"
+    },
+    {
+        "id": "62",
+        "name": "Jardin Mediterran\u00e9en",
+        "latitude": 35.7199,
+        "longitude": -0.6,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Akid Lotfi"
+    },
+    {
+        "id": "63",
+        "name": "Seddikia",
+        "latitude": 35.7133,
+        "longitude": -0.5994,
+        "Lines": [
+            "B",
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Hai Seddikia"
+    },
+    {
+        "id": "64",
+        "name": "CNEP Agence Seddikia",
+        "latitude": 35.7119,
+        "longitude": -0.6034,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Hai Seddikia"
+    },
+    {
+        "id": "65",
+        "name": "Hotel Oran Bay Sheraton",
+        "latitude": 35.7161,
+        "longitude": -0.6024,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Hai Seddikia"
+    },
+    {
+        "id": "66",
+        "name": "Lyc\u00e9e Hammou boutelilis",
+        "latitude": 35.7145,
+        "longitude": -0.6101,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Hai Seddikia"
+    },
+    {
+        "id": "67",
+        "name": "Place fontanelle",
+        "latitude": 35.7119,
+        "longitude": -0.6197,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Gambetta"
+    },
+    {
+        "id": "68",
+        "name": "Place Khalef Abdelmoumene",
+        "latitude": 35.7078,
+        "longitude": -0.6215,
+        "Lines": [
+            "P1"
+        ],
+        "markerColor": "red",
+        "district": "Gambetta"
+    },
+    {
+        "id": "71",
+        "name": "feu rouge ",
+        "latitude": 35.7101,
+        "longitude": -0.6041,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Hai Seddikia"
+    },
+    {
+        "id": "72",
+        "name": "Maternit\u00e9 Point Du Jour",
+        "latitude": 35.7069,
+        "longitude": -0.6053,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Point Du Jour"
+    },
+    {
+        "id": "74",
+        "name": "Two teams caf\u00e9",
+        "latitude": 35.7046,
+        "longitude": -0.6105,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Hai El Macta"
+    },
+    {
+        "id": "75",
+        "name": "Cit\u00e9 CNS Oran",
+        "latitude": 35.7015,
+        "longitude": -0.6114,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Hai El Macta"
+    },
+    {
+        "id": "76",
+        "name": "FABREGAS Castor",
+        "latitude": 35.696,
+        "longitude": -0.6148,
+        "Lines": [
+            "B",
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "Les Castors"
+    },
+    {
+        "id": "77",
+        "name": "Lyc\u00e9e Haddam",
+        "latitude": 35.693,
+        "longitude": -0.618,
+        "Lines": [
+            "B",
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "Hai El Makarri"
+    },
+    {
+        "id": "78",
+        "name": "CEM Belahcen Lahouari",
+        "latitude": 35.6884,
+        "longitude": -0.6232,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Hai Ibn Sinna"
+    },
+    {
+        "id": "79",
+        "name": "Tirigo",
+        "latitude": 35.6864,
+        "longitude": -0.6261,
+        "Lines": [
+            "B"
+            
+        ],
+        "markerColor": "red",
+        "district": "Tirigo"
+    },
+    {
+        "id": "80",
+        "name": "MAN\u00c8GE ORAN",
+        "latitude": 35.684,
+        "longitude": -0.632,
+        "Lines": [
+            "B"
+            
+        ],
+        "markerColor": "red",
+        "district": " El Hamri"
+    },
+    {
+        "id": "81",
+        "name": "Stade Ahmed Zabana",
+        "latitude": 35.6821,
+        "longitude": -0.6364,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "El Hamri"
+    },
+    {
+        "id": "83",
+        "name": "Nakhla Rond-point",
+        "latitude": 35.6774,
+        "longitude": -0.6478,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Maraval"
+    },
+    {
+        "id": "84",
+        "name": "",
+        "latitude": 35.6776,
+        "longitude": -0.6476,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "District B"
+    },
+    {
+        "id": "85",
+        "name": "Mus school maraval",
+        "latitude": 35.6761,
+        "longitude": -0.6511,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Maraval"
+    },
+    {
+        "id": "86",
+        "name": "Stade Wembley",
+        "latitude": 35.6755,
+        "longitude": -0.6555,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Maraval"
+    },
+    {
+        "id": "87",
+        "name": "La Glaci\u00e8re",
+        "latitude": 35.676,
+        "longitude": -0.6615,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Maraval"
+    },
+    {
+        "id": "88",
+        "name": "Placeta",
+        "latitude": 35.6772,
+        "longitude": -0.6655,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Ha\u00ef Badr"
+    },
+    {
+        "id": "89",
+        "name": "Stade Bouakeul",
+        "latitude": 35.6791,
+        "longitude": -0.6747,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Les Amandiers"
+    },
+    {
+        "id": "90",
+        "name": "Lyc\u00e9e Ahmed Ben Abderrezak",
+        "latitude": 35.6719,
+        "longitude": -0.6808,
+        "Lines": [
+            "B"
+        ],
+        "markerColor": "red",
+        "district": "Les Amandiers"
+    },
+    
+    
+    {
+        "id": "110",
+        "name": "Hassi Ameur",
+        "latitude": 35.7074,
+        "longitude": -0.4654,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "111",
+        "name": "SARL Automotiv",
+        "latitude": 35.7011,
+        "longitude": -0.4778,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "112",
+        "name": "Protection civile hassi bounif",
+        "latitude": 35.6986,
+        "longitude": -0.4881,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "113",
+        "name": "CNAS hassi bounif",
+        "latitude": 35.6944,
+        "longitude": -0.5003,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "114",
+        "name": "APC Hassi Bounif",
+        "latitude": 35.6876,
+        "longitude": -0.5053,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "115",
+        "name": "CFPA HASSI BOUNIF",
+        "latitude": 35.687,
+        "longitude": -0.5126,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "116",
+        "name": "Garita",
+        "latitude": 35.6859,
+        "longitude": -0.543,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "117",
+        "name": "Sidi Maarouf",
+        "latitude": 35.6884,
+        "longitude": -0.5568,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "119",
+        "name": "Hopital 1er Novembre",
+        "latitude": 35.6966,
+        "longitude": -0.5832,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "120",
+        "name": "Petroser",
+        "latitude": 35.6971,
+        "longitude": -0.5962,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "121",
+        "name": "Mosque Abdelhamid Ben Badis",
+        "latitude": 35.6971,
+        "longitude": -0.6066,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "124",
+        "name": "CNAS HAI CHOUHADA ZRAA",
+        "latitude": 35.6917,
+        "longitude": -0.6221,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "125",
+        "name": "Radio R\u00e9gionale Oran",
+        "latitude": 35.6957,
+        "longitude": -0.6284,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    },
+    {
+        "id": "129",
+        "name": "Prison Oran",
+        "latitude": 35.6909,
+        "longitude": -0.6441,
+        "Lines": [
+            "2"
+        ],
+        "markerColor": "red",
+        "district": "District A"
+    }
+]
