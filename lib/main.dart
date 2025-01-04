@@ -13,7 +13,7 @@ List<BusStop> busStops = [];
 List<Polyline> polylines = [];
 List<Marker> _stopMarkers = [];
 List<Marker> _otherMarkers = [];
-
+late bool UseRealLoc = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   print(Geolocator.getCurrentPosition());
@@ -61,11 +61,16 @@ class _MyAppState extends State<MyApp> {
       print("finding path");
       BusStop startStop = findNearestStop(start);
       BusStop endStop = findNearestStop(end);
-      List<PathLine> busStop =
+      print("finding path from ${startStop.name} to ${endStop.name}");
+      List<PathLine> path =
           aStarAlgorithm(busStops, busLines, startStop, endStop);
+      if (path.isEmpty) {
+        print("no path found");
+        return;
+      }
       polylines = [];
       _stopMarkers = [];
-      for (var stop in busStop) {
+      for (var stop in path) {
         print(
             "take line ${stop.lineID} from ${stop.startIndex} to ${stop.endIndex} then ");
         LoadLineIndexed(stop.lineID, stop.startIndex, stop.endIndex,
@@ -137,7 +142,6 @@ class _MyAppState extends State<MyApp> {
     }
 
     Timer timer = Timer.periodic(Duration(seconds: 2), (timer) {
-      //Load new bus data here
       setState(() {});
     });
     return MaterialApp(
@@ -162,10 +166,17 @@ class _MyAppState extends State<MyApp> {
             onTap: (tapPosition, point) {
               print("Tapped on $point");
               dest = point;
-              LatLng start = LatLng(35.6607, -0.6316);
-              findPath2(start, point);
+              if (UseRealLoc) {
+                Geolocator.getCurrentPosition().then((value) {
+                  findPath2(LatLng(value.latitude, value.longitude), point);
+                });
+              } else {
+                LatLng start = LatLng(35.6607, -0.6316);
+                findPath2(start, point);
+              }
+              ;
             },
-            initialCenter: LatLng(35.6971, -0.6308), // Center on Oran
+            initialCenter: LatLng(35.6971, -0.6308),
             initialZoom: 12.0,
             maxZoom: 16.0,
             minZoom: 12.0,
@@ -189,7 +200,18 @@ class _MyAppState extends State<MyApp> {
             itemBuilder: (context, index) {
               if (index == 0) {
                 return ListTile(
-                  title: Text("Clear Lines"),
+                  title: Column(
+                    children: [
+                      Text("Clear Lines"),
+                      IconButton(
+                          onPressed: () {
+                            UseRealLoc = !UseRealLoc;
+                          },
+                          icon: Icon(
+                            UseRealLoc ? Icons.location_on : Icons.location_off,
+                          ))
+                    ],
+                  ),
                   onTap: () {
                     polylines = [];
                     _stopMarkers = [];
@@ -201,9 +223,9 @@ class _MyAppState extends State<MyApp> {
                 title: Text(busLines[index - 1].name,
                     style: TextStyle(shadows: [
                       Shadow(
-                        offset: Offset(2, 2), // Slight shadow offset
-                        blurRadius: 3.0, // Blur radius
-                        color: Colors.black.withOpacity(0.5), // Shadow color
+                        offset: Offset(2, 2),
+                        blurRadius: 3.0,
+                        color: Colors.black.withOpacity(0.5),
                       ),
                     ], color: busLines[index - 1].color)),
                 onTap: () {
@@ -248,9 +270,8 @@ void LoadLineIndexed(String id, int startIndex, int endIndex,
     int temp = startIndex;
     startIndex = endIndex;
     endIndex = temp;
-    endIndex++;
-    startIndex--;
   }
+  endIndex++;
   if (clear) {
     polylines = [];
     _stopMarkers = [];
@@ -351,13 +372,11 @@ List<BusStop> GetWalkableStops(LatLng pos) {
 }
 
 double calculateDistance(LatLng start, LatLng dest) {
-  // Convert degrees to radians
   double lat1 = start.latitude * pi / 180;
   double lon1 = start.longitude * pi / 180;
   double lat2 = dest.latitude * pi / 180;
   double lon2 = dest.longitude * pi / 180;
 
-  // Calculate difference
   double dlat = lat2 - lat1;
   double dlon = lon2 - lon1;
 
@@ -389,84 +408,102 @@ List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
   List<AStarNode> openList = [];
   List<AStarNode> closedList = [];
 
-  AStarNode startNode = AStarNode(start,
-      gCost: 0, hCost: calculateDistance(start.position, goal.position));
+  AStarNode startNode = AStarNode(
+    start,
+    gCost: 0,
+    hCost: calculateDistance(start.position, goal.position),
+  );
   openList.add(startNode);
 
   while (openList.isNotEmpty) {
+    // Get node with the lowest fCost
     AStarNode currentNode =
         openList.reduce((a, b) => a.fCost < b.fCost ? a : b);
     openList.remove(currentNode);
 
+    // Goal reached
     if (currentNode.stop.id == goal.id) {
       List<PathLine> path = [];
-      AStarNode? current = currentNode;
-      while (current != null) {
-        if (current.parent != null) {
-          // Find the bus line connecting the current stop to the parent stop
-          for (String lineId in current.stop.lines) {
-            BusLine line = allLines.firstWhere((line) => line.id == lineId);
-            int startIndex = line.stops.indexOf(current.stop.id);
-            int endIndex = line.stops.indexOf(current.parent!.stop.id);
-
-            // Ensure both indexes are valid and start < end
-            if (startIndex != -1 && endIndex != -1) {
-              // Ensure startIndex is less than endIndex
-              if (startIndex > endIndex) {
-                // Swap the start and end indexes if necessary
-                int temp = startIndex;
-                startIndex = endIndex;
-                endIndex = temp;
-              }
-
-              // Add the path segment (including all stops between startIndex and endIndex)
-              path.add(PathLine(lineId, startIndex, endIndex));
-            }
-          }
-        }
-        current = current.parent;
+      while (currentNode.parent != null) {
+        path.add(currentNode.usedLine!);
+        currentNode = currentNode.parent!;
       }
-      path = path.reversed.toList(); // Reverse the path
-      return path; // Return the list of PathLine objects
+      return path.reversed.toList();
     }
 
     closedList.add(currentNode);
 
+    // Process neighbors
     for (String lineId in currentNode.stop.lines) {
       BusLine line = allLines.firstWhere((line) => line.id == lineId);
-      for (int i = 0; i < line.stops.length; i++) {
-        String stopId = line.stops[i];
-        if (stopId == currentNode.stop.id) continue;
+      List<String> stopsOnLine = line.stops;
 
-        BusStop neighbor = allStops.firstWhere((stop) => stop.id == stopId);
+      for (int i = 0; i < stopsOnLine.length; i++) {
+        if (stopsOnLine[i] == currentNode.stop.id) {
+          // Add neighbors
+          List<int> neighborIndices = [i - 1, i + 1];
+          for (int neighborIndex in neighborIndices) {
+            if (neighborIndex < 0 || neighborIndex >= stopsOnLine.length) {
+              continue;
+            }
 
-        double tentativeGCost = currentNode.gCost + 1;
-        double hCost = calculateDistance(neighbor.position, goal.position);
+            String neighborStopId = stopsOnLine[neighborIndex];
+            BusStop neighbor =
+                allStops.firstWhere((stop) => stop.id == neighborStopId);
 
-        AStarNode? neighborNode = openList.firstWhere(
-            (node) => node.stop.id == neighbor.id,
-            orElse: () => AStarNode(neighbor));
+            if (closedList.any((node) => node.stop.id == neighbor.id)) {
+              continue;
+            }
 
-        if (tentativeGCost < neighborNode.gCost) {
-          neighborNode.gCost = tentativeGCost;
-          neighborNode.hCost = hCost;
-          neighborNode.parent = currentNode;
-          openList.add(neighborNode);
+            double tentativeGCost = currentNode.gCost +
+                calculateDistance(currentNode.stop.position, neighbor.position);
+
+            var existingNode;
+            for (var node in openList) {
+              if (node.stop.id == neighbor.id) {
+                existingNode = node;
+              }
+            }
+
+            if (existingNode == null || tentativeGCost < existingNode.gCost) {
+              AStarNode neighborNode = existingNode ??
+                  AStarNode(
+                    neighbor,
+                    gCost: double.infinity,
+                    hCost: calculateDistance(neighbor.position, goal.position),
+                  );
+
+              neighborNode.gCost = tentativeGCost;
+              neighborNode.hCost =
+                  calculateDistance(neighbor.position, goal.position);
+              neighborNode.parent = currentNode;
+              neighborNode.usedLine = PathLine(lineId, i, neighborIndex);
+
+              if (existingNode == null) {
+                openList.add(neighborNode);
+              }
+            }
+          }
         }
       }
     }
   }
 
-  return []; // Return an empty list if no path is found
+  return []; // No path found
 }
 
 class AStarNode {
   final BusStop stop;
-  double gCost; // Cost from start node to this node
-  double hCost; // Heuristic cost (estimated cost to goal)
+  double gCost;
+  double hCost;
   AStarNode? parent;
+  PathLine? usedLine; // Tracks the line used to reach this node
 
   AStarNode(this.stop,
-      {this.gCost = double.infinity, this.hCost = 0.0, this.parent});
+      {this.gCost = double.infinity,
+      this.hCost = double.infinity,
+      this.parent,
+      this.usedLine});
+
   double get fCost => gCost + hCost;
 }

@@ -7,7 +7,8 @@
         "Lines": [
             "51",
             "11",
-            "2"
+            "2",
+            "T"
         ],
         "markerColor": "red",
         "district": "Hai Sabah"
@@ -19,7 +20,8 @@
         "longitude": -0.5773,
         "Lines": [
             "51",
-            "11"
+            "11",
+            "T"
         ],
         "markerColor": "red",
         "district": "Universit\u00e9 des sciences et technologies Mohamed Boudiaf"
@@ -31,7 +33,8 @@
         "longitude": -0.5854,
         "Lines": [
             "51",
-            "11"
+            "11",
+            "T"
         ],
         "markerColor": "red",
         "district": "Universit\u00e9 des sciences et technologies Mohamed Boudiaf"
@@ -43,7 +46,7 @@
         "longitude": -0.591,
         "Lines": [
             "51",
-            "11"
+            "11","T"
         ],
         "markerColor": "red",
         "district": "USTO"
@@ -55,7 +58,8 @@
         "longitude": -0.5958,
         "Lines": [
             "51",
-            "11"
+            "11",
+            "T"
         ],
         "markerColor": "red",
         "district": "USTO"
@@ -364,7 +368,7 @@
         "latitude": 35.6607,
         "longitude": -0.6316,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Senia"
@@ -375,7 +379,7 @@
         "latitude": 35.6653,
         "longitude": -0.6344,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Senia"
@@ -386,7 +390,7 @@
         "latitude": 35.6704,
         "longitude": -0.6374,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Les Palmiers"
@@ -397,7 +401,7 @@
         "latitude": 35.6752,
         "longitude": -0.6404,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Les Palmiers"
@@ -408,7 +412,7 @@
         "latitude": 35.6803,
         "longitude": -0.6435,
         "Lines": [
-            "34","B"
+            "34","B","T"
         ],
         "markerColor": "red",
         "district": "Cherfaoui"
@@ -420,7 +424,7 @@
         "longitude": -0.6469,
         "Lines": [
             
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Hai El Ghoualem"
@@ -431,7 +435,7 @@
         "latitude": 35.6901,
         "longitude": -0.6489,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "DAR HAYAT"
@@ -442,7 +446,7 @@
         "latitude": 35.6946,
         "longitude": -0.6507,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "DAR HAYAT"
@@ -453,7 +457,7 @@
         "latitude": 35.6978,
         "longitude": -0.6513,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Hai Karama"
@@ -464,7 +468,7 @@
         "latitude": 35.701,
         "longitude": -0.6502,
         "Lines": [
-            "34","11"
+            "34","11","T"
         ],
         "markerColor": "red",
         "district": "Ha\u00ef Emir"
@@ -475,7 +479,7 @@
         "latitude": 35.7028,
         "longitude": -0.6496,
         "Lines": [
-            "34"
+            "34","T"
         ],
         "markerColor": "red",
         "district": "Ha\u00ef Emir"
@@ -688,7 +692,8 @@
         "longitude": -0.6148,
         "Lines": [
             "B",
-            "2"
+            "2",
+            "T"
         ],
         "markerColor": "red",
         "district": "Les Castors"
@@ -957,7 +962,8 @@
         "latitude": 35.6971,
         "longitude": -0.6066,
         "Lines": [
-            "2"
+            "2",
+            "T"
         ],
         "markerColor": "red",
         "district": "District A"
@@ -994,5 +1000,83 @@
         ],
         "markerColor": "red",
         "district": "District A"
+    },
+    {
+        "id":"130",
+        "name":"Terminus Senia Universite",
+        "latitude" :35.64155,
+        "longitude":-0.6177187,
+        "Lines":["T"]
+    },
+    {
+        "id":"131",
+        "name":"Senia Sud",
+        "latitude" :35.6456803,
+        "longitude":-0.622706,
+        "Lines":["T"]
+    },
+    {
+        "id":"132",
+        "name":"Senia Centre",
+        "latitude" :35.649965,
+        "longitude":-0.6255062,
+        "Lines":["T"]
+    },
+    {
+        "id":"133",
+        "name":"Moulay Abdelkader",
+        "latitude" :35.6537712,
+        "longitude":-0.629025,
+        "Lines":["T"]
+    },
+    {
+        "id":"134",
+        "name":"Emir Abdelkader",
+        "latitude":35.7022352,
+        "longitude":-0.6487205,
+        "Lines":["T"]
+    },
+    {
+        "id":"135",
+        "name":"Arret Tram SNTF",
+        "latitude":35.6997662,
+        "longitude":-0.6429257,
+        "Lines":["T"]
+    },
+    {
+        "id":"136",
+        "name":"1er Boulevrad",
+        "latitude":35.6984607,
+        "longitude":-0.6362549,
+        "Lines":["T"]
+    },
+    {
+        "id":"137",
+        "name":"El Makkari",
+        "latitude":35.6992011,
+        "longitude":-0.6356491,
+        "Lines":["T"]
+    },
+    {
+        "id":"138",
+        "name":"Hammou Mokhtar",
+        "latitude":35.698341,
+        "longitude":-0.6207271,
+        "Lines":["T"]
+    },
+    {
+        "id":"139",
+        "name":"Arret Tramway Palais de Justice",
+        "latitude":35.6991833,
+        "longitude":-0.6031792,
+        "Lines":["T"]
+    },
+    {
+        "id":"140",
+        "name":"Hai el Yasmine",
+        "latitude":35.7037541,
+        "longitude":-0.5737895,
+        "Lines":["T"]
     }
+
 ]
