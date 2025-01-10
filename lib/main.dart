@@ -8,12 +8,13 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:geolocator/geolocator.dart';
 
 LatLng? dest;
-List<BusLine> busLines = [];
-List<BusStop> busStops = [];
+List<BBusLine> busLines = [];
+List<BBusStop> busStops = [];
 List<Polyline> polylines = [];
 List<Marker> _stopMarkers = [];
 List<Marker> _otherMarkers = [];
 late bool UseRealLoc = false;
+List<String> _linesResult = [];
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   print(Geolocator.getCurrentPosition());
@@ -28,11 +29,11 @@ Future<void> loadData() async {
   var data = json.decode(response);
 
   for (Map<String, dynamic> stop in data) {
-    busStops.add(BusStop(
+    busStops.add(BBusStop(
         stop['id'] as String,
         stop['name'] as String,
         LatLng(stop['latitude'] as double, stop['longitude'] as double),
-        List<String>.from(stop['Lines'])));
+        Set()));
   }
 
   response = await rootBundle.loadString('assets/lines_with_stops.json');
@@ -40,11 +41,15 @@ Future<void> loadData() async {
   for (Map<String, dynamic> line in data) {
     Color color = Color(int.parse(line['color'] as String, radix: 16));
     color = color.withAlpha(500);
-    busLines.add(BusLine(line['id'] as String, line['name'] as String,
-        List<String>.from(line['stops']), color));
+    BBusLine current =
+        BBusLine(line['id'] as String, line['name'] as String, [], color);
+    busLines.add(current);
+    for (String stop in line['stops'] as List<dynamic>) {
+      busStops.firstWhere((element) => element.id == stop).lines.add(current);
+      current.stops.add(busStops.firstWhere((element) => element.id == stop));
+    }
   }
-  print(busStops);
-  print(busLines);
+  print("Data Loaded");
 }
 
 class MyApp extends StatefulWidget {
@@ -59,23 +64,32 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     void calculateRoute(LatLng start, LatLng end) async {
       print("finding path");
-      BusStop startStop = findNearestStop(start);
-      BusStop endStop = findNearestStop(end);
+      BBusStop startStop = findNearestStop(start);
+      BBusStop endStop = findNearestStop(end);
       print("finding path from ${startStop.name} to ${endStop.name}");
-      List<PathLine> path =
-          aStarAlgorithm(busStops, busLines, startStop, endStop);
+      List<PathLine> path = aStarAlgorithm(startStop, endStop);
       if (path.isEmpty) {
         print("no path found");
         return;
       }
       polylines = [];
       _stopMarkers = [];
+      _linesResult = [];
+      BBusLine currentLine = path[0].line;
+      int startIndex = path[0].startIndex;
       for (var stop in path) {
-        print(
-            "take line ${stop.lineID} from ${stop.startIndex} to ${stop.endIndex} then ");
-        LoadLineIndexed(stop.lineID, stop.startIndex, stop.endIndex,
+        if (stop.line.id != currentLine.id) {
+          _linesResult.add(
+              "Take ${currentLine.name} from ${currentLine.stops[startIndex].name} to ${stop.line.stops[stop.startIndex].name} \n then Change to  ");
+          currentLine = stop.line;
+          startIndex = stop.startIndex;
+        }
+        LoadLineIndexed(stop.line, stop.startIndex, stop.endIndex,
             clear: false);
       }
+
+      _linesResult.add(
+          " ${path.last.line.name} from ${currentLine.stops[startIndex].name} to ${currentLine.stops[path.last.endIndex].name}");
     }
 
     Timer timer = Timer.periodic(Duration(seconds: 2), (timer) {
@@ -93,8 +107,9 @@ class _MyAppState extends State<MyApp> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             for (var line in busLines) {
-              LoadLine(line.id, clear: false);
+              LoadLine(line, clear: false);
             }
+            setState(() {});
           },
           child: Icon(Icons.remove_red_eye),
         ),
@@ -130,6 +145,30 @@ class _MyAppState extends State<MyApp> {
               markers: _stopMarkers + _otherMarkers,
             ),
             PolylineLayer(polylines: polylines),
+            DraggableScrollableSheet(
+                initialChildSize: 0.1,
+                minChildSize: 0.1,
+                maxChildSize: 1,
+                builder: (context, scrollController) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: _linesResult.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(_linesResult[index]),
+                        );
+                      },
+                    ),
+                  );
+                }),
           ],
         ),
         endDrawer: Drawer(
@@ -153,6 +192,7 @@ class _MyAppState extends State<MyApp> {
                   onTap: () {
                     polylines = [];
                     _stopMarkers = [];
+                    _linesResult = [];
                     Navigator.pop(context);
                   },
                 );
@@ -167,7 +207,7 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ], color: busLines[index - 1].color)),
                 onTap: () {
-                  LoadLine(busLines[index - 1].id);
+                  LoadLine(busLines[index - 1]);
                   Navigator.pop(context);
                 },
               );
@@ -179,30 +219,44 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-void LoadStops({String? id = null, bool clear = true}) {
+void LoadStops({BBusLine? Line = null, bool clear = true}) {
   if (clear) {
     _stopMarkers = [];
   }
-  for (var stop in busStops) {
-    if (id != null && !stop.lines.contains(id)) {
-      continue;
-    }
-    _stopMarkers.add(
-      Marker(
-        width: 30.0,
-        height: 30.0,
-        point: stop.position,
-        child: Icon(
-          Icons.circle,
-          color: Colors.red,
-          size: 15.0,
+  if (Line != null) {
+    for (var stop in Line.stops) {
+      _stopMarkers.add(
+        Marker(
+          width: 30.0,
+          height: 30.0,
+          point: stop.position,
+          child: Icon(
+            Icons.circle,
+            color: Colors.red,
+            size: 15.0,
+          ),
         ),
-      ),
-    );
+      );
+    }
+  } else {
+    for (BBusStop stop in busStops) {
+      _stopMarkers.add(
+        Marker(
+          width: 30.0,
+          height: 30.0,
+          point: stop.position,
+          child: Icon(
+            Icons.circle,
+            color: Colors.red,
+            size: 15.0,
+          ),
+        ),
+      );
+    }
   }
 }
 
-void LoadLineIndexed(String id, int startIndex, int endIndex,
+void LoadLineIndexed(BBusLine Line, int startIndex, int endIndex,
     {bool clear = true}) {
   if (startIndex > endIndex) {
     int temp = startIndex;
@@ -214,79 +268,63 @@ void LoadLineIndexed(String id, int startIndex, int endIndex,
     polylines = [];
     _stopMarkers = [];
   }
-  for (var line in busLines) {
-    if (line.id == id) {
-      List<LatLng> points = [];
-      for (var stop in line.stops) {
-        for (var busStop in busStops) {
-          if (busStop.id == stop) {
-            points.add(busStop.position);
-          }
-        }
-      }
-      polylines.add(Polyline(
-        points: points.sublist(startIndex, endIndex),
-        strokeWidth: 3.0,
-        color: line.color,
-      ));
-      for (var point in points.sublist(startIndex, endIndex)) {
-        _stopMarkers.add(Marker(
-          width: 30.0,
-          height: 30.0,
-          point: point,
-          child: Icon(
-            Icons.circle,
-            color: Colors.red,
-            size: 15.0,
-          ),
-        ));
-      }
-    }
+  List<LatLng> points = [];
+  for (var stop in Line.stops) {
+    points.add(stop.position);
+  }
+  polylines.add(Polyline(
+    points: points.sublist(startIndex, endIndex),
+    strokeWidth: 3.0,
+    color: Line.color,
+  ));
+  for (var point in points.sublist(startIndex, endIndex)) {
+    _stopMarkers.add(Marker(
+      width: 30.0,
+      height: 30.0,
+      point: point,
+      child: Icon(
+        Icons.circle,
+        color: Colors.red,
+        size: 15.0,
+      ),
+    ));
   }
 }
 
-void LoadLine(String id, {bool clear = true}) {
+void LoadLine(BBusLine Line, {bool clear = true}) {
   if (clear) {
     polylines = [];
   }
-  for (var line in busLines) {
-    if (line.id == id) {
-      List<LatLng> points = [];
-      for (var stop in line.stops) {
-        for (var busStop in busStops) {
-          if (busStop.id == stop) {
-            points.add(busStop.position);
-          }
-        }
-      }
-      polylines.add(Polyline(
-        points: points,
-        strokeWidth: 3.0,
-        color: line.color,
-      ));
-    }
+  List<LatLng> points = [];
+  for (BBusStop stop in Line.stops) {
+    points.add(stop.position);
   }
-  LoadStops(id: id, clear: clear);
+  polylines.add(Polyline(
+    points: points,
+    strokeWidth: 3.0,
+    color: Line.color,
+  ));
+  LoadStops(Line: Line, clear: clear);
 }
 
-class BusLine {
+class BBusLine {
   final String id;
   final String name;
-  final List<String> stops;
+  final List<BBusStop> stops;
   final Color color;
-  BusLine(this.id, this.name, this.stops, this.color);
+  BBusLine(this.id, this.name, this.stops, this.color);
 }
 
-class BusStop {
+class BBusStop {
   final String id;
   final String name;
   final LatLng position;
-  final List<String> lines;
-  BusStop(this.id, this.name, this.position, this.lines);
+  final Set<BBusLine> lines;
+  BBusStop(this.id, this.name, this.position, this.lines);
 }
 
-BusStop findNearestStop(LatLng position) {
-  BusStop nearest = busStops[0];
+BBusStop findNearestStop(LatLng position) {
+  BBusStop nearest = busStops[0];
   double min = calculateDistance(position, nearest.position);
   for (var stop in busStops) {
     LatLng bPosition = stop.position;
@@ -299,11 +337,11 @@ BusStop findNearestStop(LatLng position) {
   return nearest;
 }
 
-List<BusStop> GetWalkableStops(
+List<BBusStop> GetWalkableStops(
     LatLng
         pos) //This is here for future use 'test multiple starts and endpoints'
 {
-  List<BusStop> stops = [];
+  List<BBusStop> stops = [];
   for (var stop in busStops) {
     if (calculateDistance(pos, stop.position) < 0.5) {
       stops.add(stop);
@@ -313,15 +351,8 @@ List<BusStop> GetWalkableStops(
 }
 
 double calculateDistance(LatLng start, LatLng dest) {
-  double lat1 = start.latitude * pi / 180;
-  double lon1 = start.longitude * pi / 180;
-  double lat2 = dest.latitude * pi / 180;
-  double lon2 = dest.longitude * pi / 180;
-
-  double dlat = lat2 - lat1;
-  double dlon = lon2 - lon1;
-
-  return sqrt(dlat * dlat + dlon * dlon) * 111.0;
+  return Geolocator.distanceBetween(
+      start.latitude, start.longitude, dest.latitude, dest.longitude);
 }
 
 class BusPath {
@@ -337,15 +368,14 @@ class BusPathLine {
 }
 
 class PathLine {
-  final String lineID;
+  final BBusLine line;
   final int startIndex;
   final int endIndex;
 
-  PathLine(this.lineID, this.startIndex, this.endIndex);
+  PathLine(this.line, this.startIndex, this.endIndex);
 }
 
-List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
-    BusStop start, BusStop goal) {
+List<PathLine> aStarAlgorithm(BBusStop start, BBusStop goal) {
   List<AStarNode> openList = [];
   List<AStarNode> closedList = [];
 
@@ -375,12 +405,12 @@ List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
     closedList.add(currentNode);
 
     // Process neighbors
-    for (String lineId in currentNode.stop.lines) {
-      BusLine line = allLines.firstWhere((line) => line.id == lineId);
-      List<String> stopsOnLine = line.stops;
+    for (BBusLine line in currentNode.stop.lines) {
+      List<BBusStop> stopsOnLine = line.stops;
 
       for (int i = 0; i < stopsOnLine.length; i++) {
-        if (stopsOnLine[i] == currentNode.stop.id) {
+        //Here I can get rud of them Line Changing => Somehow  :'(
+        if (stopsOnLine[i].id == currentNode.stop.id) {
           // Add neighbors
           List<int> neighborIndices = [i - 1, i + 1];
           for (int neighborIndex in neighborIndices) {
@@ -388,9 +418,7 @@ List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
               continue;
             }
 
-            String neighborStopId = stopsOnLine[neighborIndex];
-            BusStop neighbor =
-                allStops.firstWhere((stop) => stop.id == neighborStopId);
+            BBusStop neighbor = stopsOnLine[neighborIndex];
 
             if (closedList.any((node) => node.stop.id == neighbor.id)) {
               continue;
@@ -398,6 +426,12 @@ List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
 
             double tentativeGCost = currentNode.gCost +
                 calculateDistance(currentNode.stop.position, neighbor.position);
+            //as a test im gonna add a penalty for changing lines ==========>>>> it worked  :D
+            if (currentNode.usedLine != null) {
+              if (currentNode.usedLine!.line.id != line.id) {
+                tentativeGCost += 1000;
+              }
+            }
 
             var existingNode;
             for (var node in openList) {
@@ -418,7 +452,7 @@ List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
               neighborNode.hCost =
                   calculateDistance(neighbor.position, goal.position);
               neighborNode.parent = currentNode;
-              neighborNode.usedLine = PathLine(lineId, i, neighborIndex);
+              neighborNode.usedLine = PathLine(line, i, neighborIndex);
 
               if (existingNode == null) {
                 openList.add(neighborNode);
@@ -434,7 +468,7 @@ List<PathLine> aStarAlgorithm(List<BusStop> allStops, List<BusLine> allLines,
 }
 
 class AStarNode {
-  final BusStop stop;
+  final BBusStop stop;
   double gCost;
   double hCost;
   AStarNode? parent;
